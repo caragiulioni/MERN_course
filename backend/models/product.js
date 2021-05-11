@@ -17,7 +17,7 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please nter product description"],
     trim: true,
-    maxLength: [100, "Product name cannot exceed 100 characters"],
+    maxLength: [700, "Product description cannot exceed 700 characters"],
   },
   ratings: {
     type: Number,
@@ -37,7 +37,7 @@ const productSchema = new mongoose.Schema({
   ],
   category: {
     type: String,
-    required: [ture, "Please select category"],
+    required: [true, "Please select category"],
     enum: {
       values: [
         "Electronics",
