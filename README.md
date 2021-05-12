@@ -1,5 +1,8 @@
-### Full Stack E-Commerce course using MERN
+## Full Stack E-Commerce course using MERN
 
+### Review of core concepts relative to MERN and Front-End state + additional functionality
+
+<br>
 <p>Backend API using Node and Express</p>
 <p>MongoDB/noSQL</p>
 <p>Redux state management through React</p>
