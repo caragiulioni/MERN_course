@@ -11,7 +11,7 @@ module.exports = (err, req, res, next) => {
     });
   }
 
-  if (process.end.NODE_ENV === "PRODUCTION") {
+  if (process.env.NODE_ENV === "PRODUCTION") {
     let error = { ...err };
     error.message = error.message;
 
