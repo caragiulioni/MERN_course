@@ -15,12 +15,21 @@ exports.newProduct = catchAsyncErrors(async (req, res, next) => {
 
 //get all products => api/v1/products
 exports.getProducts = catchAsyncErrors(async (req, res, next) => {
+  const resPerPage = 4;
+
+  //will be used later in FE
+  const productCount = await Product.countDocuments();
+
   const apiFeatures = new APIFeatures(Product.find(), req.query)
     .search()
-    .filter();
+    .filter()
+    .pagination(resPerPage);
+
   const products = await apiFeatures.query;
 
-  res.status(200).json({ success: true, count: products.length, products });
+  res
+    .status(200)
+    .json({ success: true, count: products.length, products, productCount });
 });
 
 //get single product details => /api/v1/product/:id
