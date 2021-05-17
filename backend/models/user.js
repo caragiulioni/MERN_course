@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
+const { icons } = require("react-icons");
 const validator = require("validator");
-
+const bcrypt = require("bcryptjs");
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -16,7 +17,7 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: [true, "Please enter password"],
-    minLength: [6, "Your password must be longer than 6 characters"],
+    minlength: [6, "Your password must be longer than 6 characters"],
     select: false,
   },
   avatar: {
@@ -31,7 +32,7 @@ const userSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    default: "user",
+    default: "User",
   },
   createdAt: {
     type: Date,
@@ -41,4 +42,12 @@ const userSchema = new mongoose.Schema({
   resetPasswordExpire: Date,
 });
 
-module.exports = mongoose.modelNames("User", userSchema);
+userSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) {
+    next();
+  }
+
+  this.password = await bcrypt.hash(this.password, 10);
+});
+
+module.exports = mongoose.model("User", userSchema);
