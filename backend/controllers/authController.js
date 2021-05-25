@@ -179,3 +179,24 @@ exports.logout = catchAsyncErrors(async (req, res, next) => {
     message: "Logged out",
   });
 });
+
+//ADMIN routes
+
+//Get all users => /api/v1/admin/users
+exports.allUsers = catchAsyncErrors(async (req, res, next) => {
+  const users = await User.find();
+  res.status(200).json({ success: true, users });
+});
+
+//get User Details => /api/v1/admin/users
+exports.getUserDetails = catchAsyncErrors(async (req, res, next) => {
+  const user = await User.findById(req.params.id);
+  if (!user) {
+    return next(new ErrorHandler(`User with id ${req.params.id} not found`));
+  }
+
+  res.status(200).json({
+    success: true,
+    user,
+  });
+});
